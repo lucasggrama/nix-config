@@ -26,7 +26,7 @@
   networking.networkmanager.enable = true;
 
   # Set your time zone.
-  time.timeZone = "America/Sao_Paulo";
+  time.timeZone = "Africa/Accra";
 
   # Select internationalisation properties.
   i18n.defaultLocale = "pt_BR.UTF-8";
@@ -63,7 +63,6 @@
   services.printing.enable = true;
 
   # Enable sound with pipewire.
-  sound.enable = true;
   hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
@@ -83,15 +82,53 @@
   # services.xserver.libinput.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.lgg = {
+  users.users.lucas = {
     isNormalUser = true;
-    description = "lgg";
+    description = "lucas";
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [
-      firefox
     #  thunderbird
+	gimp
+	netbeans
+	openjdk
+	firefox
+	postgresql
+	pgadmin
+	ungoogled-chromium
+	vim
+	python3
+	git
+	spotify
+	ticktick
+	gnomeExtensions.mute-spotify-ads
+	python311Packages.django
+  (vscode-with-extensions.override {
+    vscode = vscodium;
+    vscodeExtensions = with vscode-extensions; [
+      	bbenoist.nix
+      	arcticicestudio.nord-visual-studio-code
+   	dia-unstable
+	pgadmin
+	postgresql
+	bitwarden-desktop
+	pgmodeler
+	ms-python.python
+      	batisteo.vscode-django
+	ms-vscode-remote.remote-ssh
+	] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
+      {
+        name = "remote-ssh-edit";
+        publisher = "ms-vscode-remote";
+        version = "0.47.2";
+        sha256 = "1hp6gjh4xp2m1xlm1jsdzxw9d8frkiidhph6nvl24d0h8z34w49g";
+      }
+    ];
+  })
+
     ];
   };
+
+  # Install firefox.  programs.firefox.enable = false;
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
@@ -99,20 +136,8 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-    	wget
-    	ungoogled-chromium
-    	discord
-    	neovim
-    	firefox
-    	netbeans
-    	jdk
-    	maven
-    	gh
-    	git 
-    	gcc
-	terminator    
-	hugo 
+  #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+  #  wget
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -140,6 +165,7 @@
   # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "22.11"; # Did you read the comment?
+  system.stateVersion = "24.05"; # Did you read the comment?
 
 }
+
